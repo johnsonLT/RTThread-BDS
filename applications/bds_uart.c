@@ -255,16 +255,17 @@ void find_bds_msg(char *data_buf, uint16_t data_len, uint16_t *remain_len)
            i++;
        }
     }
-    if ((end_pos != 0) && (msg_start_flag == true) && (end_pos == start_pos)) {
-        *remain_len = i-start_pos;
-        memcpy(data_buf, data_buf+start_pos, *remain_len);
-        memset(data_buf+*remain_len, 0x00, data_len-*remain_len);
-        //rt_kprintf("[bds_uart.c]remain data_buf=%s, remain_len = %d\n", data_buf, *remain_len);//to do
-    }
-    else {
-        *remain_len = 0;
-        memset(data_buf, 0x00, data_len);
-    }
+//    if ((end_pos != 0) && (msg_start_flag == true) && (end_pos == start_pos)) {
+//        *remain_len = i-start_pos;
+//        memcpy(data_buf, data_buf+start_pos, *remain_len);
+//        memset(data_buf+*remain_len, 0x00, data_len-*remain_len);
+//        //rt_kprintf("[bds_uart.c]remain data_buf=%s, remain_len = %d\n", data_buf, *remain_len);//to do
+//    }
+//    else {
+//        *remain_len = 0;
+//        memset(data_buf, 0x00, data_len);
+//    }
+    memset(data_buf, 0x00, data_len);
 }
 
 static void serial_thread_entry(void *parameter)
@@ -277,9 +278,10 @@ static void serial_thread_entry(void *parameter)
         {
             rt_sem_take(&rx_sem, RT_WAITING_FOREVER);
         }
-        strncpy(local_buf+remain_len, uart_recv, BDS_DATA_LEN);
+        //strncpy(local_buf+remain_len, uart_recv, BDS_DATA_LEN);
         //rt_kprintf("[bds_uart.c]uart recv local_buf:%s, len = %d\n", local_buf, BDS_DATA_LEN+remain_len);
-        find_bds_msg(local_buf, TEMP_BUF_LEN, &remain_len);
+        // find_bds_msg(local_buf, TEMP_BUF_LEN, &remain_len);
+        find_bds_msg(uart_recv, BDS_DATA_LEN, &remain_len);
         rt_thread_mdelay(50);
     }
 }
@@ -297,7 +299,7 @@ static void bds_read_thread_entry(void *parameter)
             bds_analysis(loc_bds_read_buf);
             memset(loc_bds_read_buf, 0x00, PKG_MAX_LEN);
         }
-        rt_thread_mdelay(5);
+        rt_thread_mdelay(50);
         len = 0;
     }
 }
@@ -321,6 +323,7 @@ static rt_err_t uart_input(rt_device_t dev, rt_size_t size)
     msg.dev = dev;
     msg.size = size;
     result = rt_mq_send(&rx_mq, &msg, sizeof(msg));
+    rt_kprintf("uart_input get data\n");
     if ( result == -RT_EFULL)
     {
         /* 消 息 队 列 满 */
@@ -334,7 +337,7 @@ static void serial_thread_entry(void *parameter)
     struct rx_msg msg;
     rt_err_t result;
     rt_uint32_t rx_length;
-    static char rx_buffer[128 + 1];
+    static char rx_buffer[256 + 1];
     while (1)
     {
         rt_memset(&msg, 0, sizeof(msg));
@@ -483,7 +486,7 @@ int bds_thread_init()
     config.baud_rate = BAUD_RATE_115200; //修改波特率为115200
     config.data_bits = DATA_BITS_8; //数据位8
     config.stop_bits = STOP_BITS_1; //停止位1
-    config.bufsz = BDS_DATA_LEN; //修改缓冲区buff size 为128
+    config.bufsz = BDS_DATA_LEN; //修改缓冲区buff size 为256
     config.parity = PARITY_NONE; //无奇偶校验位
     rt_device_control(serial, RT_DEVICE_CTRL_CONFIG, &config);
     if (!serial)
@@ -523,7 +526,7 @@ int bds_thread_init()
 
 #endif
 #ifndef USE_INTERRUPT
-    static char msg_pool[256];
+    static char msg_pool[1024];
     /* 初 始 化 消 息 队 列 */
     rt_mq_init(&rx_mq, "rx_mq",
                 msg_pool, /* 存 放 消 息 的 缓 冲 区 */

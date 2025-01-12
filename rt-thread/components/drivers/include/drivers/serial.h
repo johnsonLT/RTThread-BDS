@@ -113,6 +113,8 @@ struct serial_configure
  */
 struct rt_serial_rx_fifo
 {
+    /*cache -litong 20250108*/
+    rt_uint32_t buf_sz;
     /* software fifo */
     rt_uint8_t *buffer;
 
