@@ -12,6 +12,8 @@
 #define DBG_TAG "main"
 #define DBG_LVL DBG_INFO
 #include <rtdbg.h>
+//touch define
+#define REST_PIN GET_PIN(D, 3)
 
 static struct global_sundry g_sundry = {0};
 
@@ -227,5 +229,6 @@ static int vtor_config(void)
     return 0;
 }
 INIT_BOARD_EXPORT(vtor_config);
+
 
 
