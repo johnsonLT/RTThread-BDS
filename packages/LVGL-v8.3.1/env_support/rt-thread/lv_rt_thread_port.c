@@ -48,7 +48,7 @@ static void lvgl_thread_entry(void *parameter)
     lv_init();
     lv_port_disp_init();
     lv_port_indev_init();
-    //lv_user_gui_init();  //暂时注释掉，后面使用时打开
+    lv_user_gui_init();
 
     /* handle the tasks of LVGL */
     while(1)

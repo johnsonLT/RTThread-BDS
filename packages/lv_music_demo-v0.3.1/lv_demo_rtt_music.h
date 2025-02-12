@@ -14,6 +14,8 @@ extern "C" {
  *      INCLUDES
  *********************/
 #include <lvgl.h>
+//lvgl music define
+#define LV_USE_DEMO_RTT_MUSIC   1
 
 #if LV_USE_DEMO_RTT_MUSIC
 

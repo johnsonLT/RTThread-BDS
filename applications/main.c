@@ -12,8 +12,6 @@
 #define DBG_TAG "main"
 #define DBG_LVL DBG_INFO
 #include <rtdbg.h>
-//touch define
-#define REST_PIN GET_PIN(D, 3)
 
 static struct global_sundry g_sundry = {0};
 
@@ -209,7 +207,6 @@ int main(void)
     HAL_PWR_EnableBkUpAccess();
     RT_ASSERT(fal_init() > 0);
     RT_ASSERT(easyflash_init() == EF_NO_ERR);
-
     global_sundry_default_init();
     rt_thread_idle_sethook(run_time_calc_hook);
     fs_init(&g_sundry);
@@ -217,7 +214,8 @@ int main(void)
     plugins_init();
     init_module_init();
     webnet_init();
-    bds_thread_init();
+
+    //bds_thread_init();
     return RT_EOK;
 }
 

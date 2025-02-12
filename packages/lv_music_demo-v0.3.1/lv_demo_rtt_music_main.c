@@ -96,6 +96,12 @@ static uint32_t spectrum_len;
 static const uint16_t rnd_array[30] = {994, 285, 553, 11, 792, 707, 966, 641, 852, 827, 44, 352, 146, 581, 490, 80, 729, 58, 695, 940, 724, 561, 124, 653, 27, 292, 557, 506, 382, 199};
 
 /**********************
+ *  GLOBAL VARIABLES
+ **********************/
+const lv_font_t lv_font_montserrat_12;
+const lv_font_t lv_font_montserrat_16;
+
+/**********************
  *      MACROS
  **********************/
 

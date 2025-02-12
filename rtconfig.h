@@ -258,6 +258,15 @@
 /* Wiced WiFi */
 
 
+/* CYW43012 WiFi */
+
+
+/* BL808 WiFi */
+
+
+/* CYW43439 WiFi */
+
+
 /* IoT Cloud */
 
 #define PKG_USING_AGILE_TELNET
@@ -293,13 +302,10 @@
 #define PKG_LVGL_THREAD_STACK_SIZE 4096
 #define PKG_LVGL_DISP_REFR_PERIOD 5
 #define PKG_LVGL_USING_V08031
-#define PKG_LVGL_VER_NUM 0x08031
+#define PKG_LVGL_VER_NUM 0x080301
 #define PKG_USING_LV_MUSIC_DEMO
 
 /* u8g2: a monochrome graphic library */
-
-
-/* PainterEngine: A cross-platform graphics application framework written in C language */
 
 
 /* tools packages */
@@ -338,13 +344,26 @@
 #define LFS_BLOCK_CYCLES 1000
 #define LFS_THREADSAFE
 #define LFS_LOOKAHEAD_MAX 128
+#define RT_DEF_LFS_DRIVERS 1
 
 /* peripheral libraries and drivers */
+
+/* HAL & SDK Drivers */
+
+/* STM32 HAL & SDK Drivers */
+
+
+/* Infineon HAL Packages */
 
 
 /* Kendryte SDK */
 
-#define PKG_USING_TOUCH_DRIVERS
+
+/* sensors drivers */
+
+
+/* touch drivers */
+
 #define PKG_USING_FT6236
 #define PKG_USING_FT6236_SAMPLE
 #define PKG_USING_FT6236_LATEST_VERSION
@@ -361,6 +380,9 @@
 /* AI packages */
 
 
+/* Signal Processing and Control Algorithm Packages */
+
+
 /* miscellaneous packages */
 
 /* project laboratory */
@@ -374,7 +396,7 @@
 /* Arduino libraries */
 
 
-/* Projects */
+/* Projects and Demos */
 
 
 /* Sensors */
@@ -393,10 +415,12 @@
 
 /* Communication */
 
+
 /* Device Control */
 
 
 /* Other */
+
 
 /* Signal IO */
 

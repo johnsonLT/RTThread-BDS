@@ -43,6 +43,11 @@ LV_IMG_DECLARE(img_lv_demo_music_btn_list_play);
 LV_IMG_DECLARE(img_lv_demo_music_btn_list_pause);
 
 /**********************
+ *  GLOBAL VARIABLES
+ **********************/
+const lv_font_t lv_font_montserrat_12;
+const lv_font_t lv_font_montserrat_16;
+/**********************
  *      MACROS
  **********************/
 
